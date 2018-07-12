@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		var io = io.connect();
+		function send()
+		{
+			document.getElementById('typing').innerHTML="";
+			var a = document.getElementById("msg").value;
+			var b = document.getElementById("name").value;
+			var obj = { name : b, msg : a};
+			io.emit("msg", obj);
+			document.getElementById("msg").value="";
+		}
+
+		io.on('sms', function(data){
+
+document.getElementById("chat_box").innerHTML+= "<b>"+data.name+"</b> : "+data.msg+"<br />";
+		});
+
+
+		function keypress()
+		{
+			document.getElementById('typing').innerHTML="";
+			var a = document.getElementById("name").value;
+			io.emit("type", a);
+		}
+
+		io.on('type', function(data){
+			document.getElementById("typing").innerHTML=data;
+		});
+
+	</script>
+	<style type="text/css">
+		#box{
+			margin: 20px auto;
+			width: 600px;
+			min-height: 200px;
+			padding: 10px;
+			background-color: #DDD;
+		}
+		#box h3{
+			margin: 0;
+			padding: 0;
+		}
+		#box p{
+			color: red;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+Name <input type="text" id="name" placeholder="Your Name">
+<br />
+<br />
+Message <input id="msg"  onkeypress="keypress()" type="text" placeholder="Message">
+<button onclick="send()">Send</button>
+<div id="box">
+	<h3>Chat Box</h3>
+	<p id="typing"></p>
+	<hr />
+	<div id="chat_box"></div>
+</div>
+</body>
+</html>
