@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		var io = io.connect();
+
+		io.on('loggedIn', function(data){
+			// console.log(data);
+			document.getElementById("logged_in_user").innerHTML="";
+			data.forEach(function(x){
+				document.getElementById("logged_in_user").innerHTML+= '<li class="list-group-item"><a href="#">'+x+'</a></li>'
+			});
+		});
+	</script>
+
+
+
+</head>
+<body>
+<br />
+<br />
+	<div class="container">
+		<div class="col-md-10 col-md-offset-2">
+		<h2>Welcome <%= session.name %></h2>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Logged In Users</h4>
+
+				</div>
+				<div class="panel-body">
+					<ul id="logged_in_user" class="list-group">
+						
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		</div>
+
+	</div>
+</body>
+</html>

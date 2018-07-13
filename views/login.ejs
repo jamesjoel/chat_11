@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<br />
+<br />
+<br />
+	<div class="container">
+		<div class="col-md-4 col-md-offset-4">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">Login</div>
+			  <div class="panel-body">
+			  	<form action="/" method="post">
+			  	  <div class="form-group">
+			  	    <label for="email">Username</label>
+			  	    <input type="email" name="username" class="form-control" id="email">
+			  	  </div>
+			  	  <div class="form-group">
+			  	    <label for="pwd">Password:</label>
+			  	    <input type="password" name="password" class="form-control" id="pwd">
+			  	  </div>
+			  	  
+			  	  <button type="submit" class="btn btn-primary">Submit</button>
+			  	</form>
+			  	<%= msg %>
+			  </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
