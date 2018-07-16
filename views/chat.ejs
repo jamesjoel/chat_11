@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+		var io = io.connect();
+
+		function selectUser(n)
+		{
+			document.getElementById("showName").innerHTML=n;
+
+		}
+		var cu = document.getElementById("current").innerHTML;
+		alert(cu);
+
+
+		function send()
+		{
+			var name = document.getElementById("showName").innerHTML;
+			var msg = document.getElementById("msg").value;
+			var cu = document.getElementById("currentUser").innerHTML;
+
+			var obj = { current : cu, name : name, msg : msg};
+
+
+
+			io.emit("send", obj);
+			document.getElementById("msg").value="";
+
+		}
+
+		io.on('receive', function(data){
+			document.getElementById("showMsg").innerHTML += "<b>"+data.name+"</b> : "+data.msg;
+		});
+
+	</script>
+</head>
+<body>
+<div class="container">
+	<br />
+	<br />
+	<h3>You : <b id="current"><%= currentUser %></b></h3>
+	<ul class="list-group col-sm-3">
+		<% names.forEach(function(x){ %>
+			<li class="list-group-item"><a onclick="selectUser('<%= x %>')" href="#"><%= x %></a></li>
+
+	<% }) %>
+	</ul>
+	<div class="col-sm-7">
+		<div class="well" style="background-color: #000">
+			<h3 class="label label-primary" id="showName"></h3>
+			<hr />
+			<div id="showMsg" style="min-height: 300px; width: 100%; background-color: #FFF; overflow-y: scroll;"></div>
+			<input type="text" id="msg" placeholder="Your Message" class="form-control">
+			<button class="btn btn-success" onclick="send()">Send</button>
+		</div>
+	</div>
+
+	<!-- <form action="/" method="post">
+		
+	<div class="col-md-4 col-sm-4 col-ms-offset-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Add Your Name</h3>
+			</div>
+			<div class="panel-body">
+				<input name="name" type="text" class="form-control">
+			</div>
+			<div class="panel-footer">
+				<button type="submit" class="btn btn-primary">Next</button>
+			</div>
+		</div>
+	</div>
+	</form> -->
+</body>
+</html>
